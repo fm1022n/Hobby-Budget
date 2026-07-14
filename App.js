@@ -307,7 +307,7 @@ function ListScreen({
         onPress={() =>
           confirmAction(
             "選択した項目を削除",
-            "選択した項目を削除しますか？",
+            "削除しますか？",
             deleteSelected,
           )
         }
@@ -318,7 +318,7 @@ function ListScreen({
 
       <TouchableOpacity
         onPress={() =>
-          confirmAction("全て削除", "全て削除しますか？", clearAllData)
+          confirmAction("全て削除", "削除しますか？", clearAllData)
         }
         style={styles.mutedActionButton}
       >
