@@ -22,35 +22,35 @@ const screenWidth = Dimensions.get("window").width;
 const Tab = createBottomTabNavigator();
 
 const categories = [
-  "ゲーム",
-  "イベント",
+  "遊び",
+  "旅行",
   "サブスクリプション",
-  "買い物",
-  "食費",
-  "趣味用品",
+  "ショッピング",
+  "飲食",
+  "推し活",
   "その他",
 ];
 
 const categoryLabels = {
-  Games: "ゲーム",
-  Events: "イベント",
+  Games: "遊び",
+  Events: "旅行",
   Subscriptions: "サブスクリプション",
-  Shopping: "買い物",
-  Food: "食費",
-  "Hobby gear": "趣味用品",
+  Shopping: "ショッピング",
+  Food: "飲食",
+  "Hobby gear": "推し活",
   Other: "その他",
 };
 
 const getCategoryLabel = (category) => categoryLabels[category] || category;
 
 const colors = [
-  "#2f5d62",
-  "#5e8c61",
-  "#d9a441",
-  "#c45b4d",
-  "#6c6f93",
-  "#7b6651",
-  "#8a8f98",
+  "#96abbd",
+  "#687c8d",
+  "#e9e9e9",
+  "#c5bfb9",
+  "#948f89",
+  "#c0c0c0",
+  "#696969",
 ];
 
 const STORAGE_KEYS = {
@@ -102,12 +102,12 @@ function InputScreen({
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
       >
-        <Text style={styles.title}>趣味の家計簿</Text>
+        <Text style={styles.title}>Hobby Budget</Text>
 
-        <Text style={styles.label}>月の予算</Text>
+        <Text style={styles.label}>今月の上限額</Text>
         <TextInput
           style={styles.input}
-          placeholder="月の予算を入力"
+          placeholder="金額を入力"
           value={monthlyLimit}
           onChangeText={async (text) => {
             const value = text.replace(/[^0-9]/g, "");
@@ -141,13 +141,13 @@ function InputScreen({
         )}
 
         <View style={styles.buttonSpacing}>
-          <Button title="最近の入力を消去" color="#333333" onPress={clearRecent} />
+          <Button title="履歴を削除" color="#333333" onPress={clearRecent} />
         </View>
 
         <Text style={styles.label}>メモ</Text>
         <TextInput
           style={styles.input}
-          placeholder="例：コンサートチケット"
+          placeholder="例:飲み会"
           value={memo}
           onChangeText={setMemo}
         />
@@ -217,7 +217,7 @@ function InputScreen({
         </View>
 
         <View style={styles.addButton}>
-          <Button title="支出を追加" color="#000000" onPress={addItem} />
+          <Button title="＋追加する" color="#000000" onPress={addItem} />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -228,14 +228,14 @@ function ChartScreen({ limitChartData, categoryChartData, total, limitNum, remai
   const usageRate = limitNum > 0 ? total / limitNum : 0;
   const warningText =
     usageRate >= 1
-      ? "月の予算を超えています。"
+      ? "上限額を超えています"
       : usageRate >= 0.8
-        ? "月の予算の80%以上を使用しています。"
+        ? "使いすぎ注意"
         : "";
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.scrollContent}>
-      <Text style={styles.title}>月の予算</Text>
+      <Text style={styles.title}>今月の上限</Text>
 
       {limitNum > 0 ? (
         <>
@@ -253,7 +253,7 @@ function ChartScreen({ limitChartData, categoryChartData, total, limitNum, remai
             }}
           />
 
-          <Text style={styles.totalText}>支出：{total}円</Text>
+          <Text style={styles.totalText}>使用済み：{total}円</Text>
           <Text style={[styles.totalText, remaining < 0 && styles.dangerText]}>
             残り：{remaining}円
           </Text>
@@ -265,10 +265,10 @@ function ChartScreen({ limitChartData, categoryChartData, total, limitNum, remai
           )}
         </>
       ) : (
-        <Text style={styles.emptyText}>月の予算を設定するとグラフが表示されます。</Text>
+        <Text style={styles.emptyText}>上限額が設定されていません</Text>
       )}
 
-      <Text style={[styles.title, styles.sectionTitle]}>カテゴリ別</Text>
+      <Text style={[styles.title, styles.sectionTitle]}>カテゴリ別支出</Text>
       {categoryChartData.length > 0 ? (
         <PieChart
           data={categoryChartData}
@@ -284,7 +284,7 @@ function ChartScreen({ limitChartData, categoryChartData, total, limitNum, remai
           }}
         />
       ) : (
-        <Text style={styles.emptyText}>支出はまだ登録されていません。</Text>
+        <Text style={styles.emptyText}>まだデータがありません</Text>
       )}
     </ScrollView>
   );
@@ -306,27 +306,27 @@ function ListScreen({
       <TouchableOpacity
         onPress={() =>
           confirmAction(
-            "選択した支出を削除",
-            "選択した支出を削除しますか？",
+            "選択した項目を削除",
+            "選択した項目を削除しますか？",
             deleteSelected,
           )
         }
         style={styles.darkActionButton}
       >
-        <Text style={styles.actionButtonText}>選択した支出を削除</Text>
+        <Text style={styles.actionButtonText}>選択した項目を削除</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() =>
-          confirmAction("すべて削除", "すべての支出記録を削除しますか？", clearAllData)
+          confirmAction("全て削除", "全て削除しますか？", clearAllData)
         }
         style={styles.mutedActionButton}
       >
-        <Text style={styles.actionButtonText}>すべて削除</Text>
+        <Text style={styles.actionButtonText}>全て削除</Text>
       </TouchableOpacity>
 
       {dataList.length === 0 ? (
-        <Text style={styles.emptyText}>支出はまだ登録されていません。</Text>
+        <Text style={styles.emptyText}>まだ記録がありません</Text>
       ) : (
         [...dataList].reverse().map((item) => (
           <TouchableOpacity
@@ -349,8 +349,8 @@ function ListScreen({
             <TouchableOpacity
               onPress={() =>
                 confirmAction(
-                  "支出を削除",
-                  "この支出記録を削除しますか？",
+                  "削除",
+                  "削除しますか？",
                   () => deleteItem(item.id),
                 )
               }
