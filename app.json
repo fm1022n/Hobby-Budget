@@ -13,8 +13,7 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.fumina.hobbybudget"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -24,8 +23,7 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "output": "static"
+      "favicon": "./assets/favicon.png"
     }
   }
 }
