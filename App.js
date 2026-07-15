@@ -495,36 +495,6 @@ dataList.forEach((item) => {
       contentContainerStyle={styles.scrollContent}
     >
       <Text style={styles.title}>カレンダー</Text>
-
-<View style={styles.monthNavigation}>
-
-  <TouchableOpacity
-    onPress={() => {
-      const date = new Date(currentMonth);
-      date.setMonth(date.getMonth() - 1);
-      setCurrentMonth(date.toISOString().split("T")[0]);
-    }}
-  >
-    <Text style={styles.arrowButton}>◀</Text>
-  </TouchableOpacity>
-
-
-  <Text style={styles.monthText}>
-    {currentMonth.slice(0, 7).replace("-", "年 ")}月
-  </Text>
-
-
-  <TouchableOpacity
-    onPress={() => {
-      const date = new Date(currentMonth);
-      date.setMonth(date.getMonth() + 1);
-      setCurrentMonth(date.toISOString().split("T")[0]);
-    }}
-  >
-    <Text style={styles.arrowButton}>▶</Text>
-  </TouchableOpacity>
-
-</View>
         
       <Calendar
         minDate={minCalendarDate}
