@@ -419,6 +419,10 @@ function MonthlyScreen({ dataList }) {
 
 function CalendarScreen({ dataList }) {
   const [selectedDate, setSelectedDate] = useState(null);
+  const currentYear = new Date().getFullYear();
+
+  const minCalendarDate = `${currentYear - 2}-01-01`;
+  const maxCalendarDate = `${currentYear}-12-31`;
 
   const markedDates = {};
 
@@ -445,6 +449,10 @@ dataList.forEach((item) => {
       <Text style={styles.title}>カレンダー</Text>
 
       <Calendar
+        minDate={minCalendarDate}
+        maxDate={maxCalendarDate}
+        enableSwipeMonths={true}
+        showArrows={true}
         markedDates={{
           ...markedDates,
           ...(selectedDate && {
