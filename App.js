@@ -557,6 +557,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      documentTitle={{
+        formatter: () =>"Hobby Budget",
+      }}
+    >
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="入力">
           {() => (
