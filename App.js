@@ -416,7 +416,7 @@ export default function App() {
     if (Platform.OS === "web") {
       document.title = "Hobby Budget";
     }
-  }, [])+
+  }, []);
     
   const [dataList, setDataList] = useState([]);
   const [category, setCategory] = useState(categories[0]);
