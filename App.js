@@ -411,6 +411,13 @@ function MonthlyScreen({ dataList }) {
 }
 
 export default function App() {
+  
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      document.title = "Hobby Budget";
+    }
+  }, [])+
+    
   const [dataList, setDataList] = useState([]);
   const [category, setCategory] = useState(categories[0]);
   const [amount, setAmount] = useState("");
@@ -557,10 +564,6 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      documentTitle={{
-        formatter: () =>"Hobby Budget",
-      }}
-    >
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen name="入力">
           {() => (
