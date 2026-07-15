@@ -21,6 +21,7 @@
     "react-dom": "^19.1.0",
     "react-native": "0.81.5",
     "react-native-chart-kit": "*",
+    "react-native-calendars": "^1.1307.0",
     "react-native-keyboard-aware-scroll-view": "*",
     "react-native-modal-datetime-picker": "*",
     "react-native-paper": "4.9.2",
