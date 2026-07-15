@@ -60,6 +60,12 @@ const STORAGE_KEYS = {
   monthlyLimit: "MONTHLY_LIMIT",
 };
 
+const formatDateForCalendar = (date) => {
+  const [year, month, day] = date.split("/");
+
+  return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+};
+
 function confirmAction(title, message, onConfirm) {
   if (Platform.OS === "web") {
     if (window.confirm(`${title}\n\n${message}`)) {
@@ -416,18 +422,18 @@ function CalendarScreen({ dataList }) {
 
   const markedDates = {};
 
-  dataList.forEach((item) => {
-    const date = item.date.replaceAll("/", "-");
+dataList.forEach((item) => {
+  const date = formatDateForCalendar(item.date);
 
-    markedDates[date] = {
-      marked: true,
-      dotColor: "#2f5d62",
-    };
-  });
+  markedDates[date] = {
+    marked: true,
+    dotColor: "#2f5d62",
+  };
+});
 
   const selectedItems = selectedDate
     ? dataList.filter(
-        (item) => item.date.replaceAll("/", "-") === selectedDate
+        (item) => formatDateForCalendar(item.date) === selectedDate
       )
     : [];
 
