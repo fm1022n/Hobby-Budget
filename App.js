@@ -17,6 +17,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Picker } from "@react-native-picker/picker";
 import { PieChart } from "react-native-chart-kit";
+import { Calendar } from "react-native-calendars";
 
 const screenWidth = Dimensions.get("window").width;
 const Tab = createBottomTabNavigator();
@@ -410,6 +411,86 @@ function MonthlyScreen({ dataList }) {
   );
 }
 
+function CalendarScreen({ dataList }) {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const markedDates = {};
+
+  dataList.forEach((item) => {
+    const date = item.date.replaceAll("/", "-");
+
+    markedDates[date] = {
+      marked: true,
+      dotColor: "#2f5d62",
+    };
+  });
+
+  const selectedItems = selectedDate
+    ? dataList.filter(
+        (item) => item.date.replaceAll("/", "-") === selectedDate
+      )
+    : [];
+
+  return (
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.scrollContent}
+    >
+      <Text style={styles.title}>カレンダー</Text>
+
+      <Calendar
+        markedDates={{
+          ...markedDates,
+          ...(selectedDate && {
+            [selectedDate]: {
+              selected: true,
+              selectedColor: "#2f5d62",
+              marked: true,
+            },
+          }),
+        }}
+        onDayPress={(day) => {
+          setSelectedDate(day.dateString);
+        }}
+      />
+
+      <Text style={[styles.title, styles.sectionTitle]}>
+        {selectedDate
+          ? `${selectedDate} の支出`
+          : "日付を選択してください"}
+      </Text>
+
+
+      {selectedItems.length > 0 ? (
+        selectedItems.map((item) => (
+          <View key={item.id} style={styles.listCard}>
+            <Text style={styles.listText}>
+              {getCategoryLabel(item.category)}
+            </Text>
+
+            {item.memo && (
+              <Text style={styles.listText}>
+                メモ：{item.memo}
+              </Text>
+            )}
+
+            <Text style={styles.listAmount}>
+              {item.amount}円
+            </Text>
+          </View>
+        ))
+      ) : (
+        selectedDate && (
+          <Text style={styles.emptyText}>
+            この日の支出はありません
+          </Text>
+        )
+      )}
+
+    </ScrollView>
+  );
+}
+
 export default function App() {
   
   useEffect(() => {
@@ -616,6 +697,10 @@ export default function App() {
 
         <Tab.Screen name="月別">
           {() => <MonthlyScreen dataList={dataList} />}
+        </Tab.Screen>
+
+        <Tab.Screen name="カレンダー">
+          {() => <CalendarScreen dataList={dataList} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
