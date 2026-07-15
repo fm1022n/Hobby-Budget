@@ -463,6 +463,9 @@ function MonthlyScreen({ dataList }) {
 }
 
 function CalendarScreen({ dataList }) {
+  const [currentMonth, setCurrentMonth] = useState(
+  new Date().toISOString().split("T")[0]
+);
   const [selectedDate, setSelectedDate] = useState(null);
   const currentYear = new Date().getFullYear();
 
@@ -493,12 +496,47 @@ dataList.forEach((item) => {
     >
       <Text style={styles.title}>カレンダー</Text>
 
+<View style={styles.monthNavigation}>
+
+  <TouchableOpacity
+    onPress={() => {
+      const date = new Date(currentMonth);
+      date.setMonth(date.getMonth() - 1);
+      setCurrentMonth(date.toISOString().split("T")[0]);
+    }}
+  >
+    <Text style={styles.arrowButton}>◀</Text>
+  </TouchableOpacity>
+
+
+  <Text style={styles.monthText}>
+    {currentMonth.slice(0, 7).replace("-", "年 ")}月
+  </Text>
+
+
+  <TouchableOpacity
+    onPress={() => {
+      const date = new Date(currentMonth);
+      date.setMonth(date.getMonth() + 1);
+      setCurrentMonth(date.toISOString().split("T")[0]);
+    }}
+  >
+    <Text style={styles.arrowButton}>▶</Text>
+  </TouchableOpacity>
+
+</View>
+        
       <Calendar
         minDate={minCalendarDate}
         maxDate={maxCalendarDate}
         enableSwipeMonths={false}
         showArrows={true}
         monthFormat={"yyyy年 M月"}
+        renderArrow={(direction) => (
+          <Text style={{ fontSize: 24 }}>
+            {direction === "left" ? "◀" : "▶"}
+          </Text>
+        )}
         markedDates={{
           ...markedDates,
           ...(selectedDate && {
@@ -972,5 +1010,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
     marginTop: 8,
+  },
+  
+  monthNavigation: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+
+arrowButton: {
+    fontSize: 24,
+    color: "#333333",
+    paddingHorizontal: 20,
+  },
+
+monthText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#202124",
   },
 });
