@@ -889,6 +889,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginHorizontal: 4,
+    fontSize: 16,
   },
   addButton: {
     marginBottom: 24,
