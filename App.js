@@ -524,7 +524,7 @@ dataList.forEach((item) => {
 
       <Text style={[styles.title, styles.sectionTitle]}>
         {selectedDate
-          ? `${selectedDate} の支出`
+          ? `${selectedDate.replace(/-/g, "/")} の支出`
           : "日付を選択してください"}
       </Text>
 
