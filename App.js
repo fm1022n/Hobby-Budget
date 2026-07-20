@@ -73,7 +73,6 @@ const categories = [
   "サブスクリプション",
   "ショッピング",
   "飲食",
-  "日用品",
   "推し活",
   "その他",
 ];
@@ -84,7 +83,6 @@ const categoryLabels = {
   Subscriptions: "サブスクリプション",
   Shopping: "ショッピング",
   Food: "飲食",
-  dailyuseitems:"日用品",
   "Hobby gear": "推し活",
   Other: "その他",
 };
@@ -97,7 +95,6 @@ const colors = [
   "#e9e9e9",
   "#c5bfb9",
   "#948f89",
-  "#a8a39d",
   "#c0c0c0",
   "#696969",
 ];
