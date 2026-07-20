@@ -538,7 +538,7 @@ dataList.forEach((item) => {
 
             {item.memo && (
               <Text style={styles.listText}>
-                メモ：{item.memo}
+                {item.memo}
               </Text>
             )}
 
