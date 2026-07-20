@@ -883,6 +883,12 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
+    height: 55,
+    backgroundColor: "#ffffff",
+    borderColor: "#d8d3ca",
+    borderWidth: 1,
+    borderRadius: 8,
+    marginHorizontal: 4,
   },
   addButton: {
     marginBottom: 24,
