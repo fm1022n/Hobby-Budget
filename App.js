@@ -883,13 +883,13 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
-    height: 55,
+    height: 50,
     backgroundColor: "#ffffff",
     borderColor: "#d8d3ca",
     borderWidth: 1,
     borderRadius: 8,
     marginHorizontal: 4,
-    fontSize: 16,
+    fontSize: 14,
   },
   addButton: {
     marginBottom: 24,
