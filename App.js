@@ -883,7 +883,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
-    height: 50,
+    height: 45,
     backgroundColor: "#ffffff",
     borderColor: "#d8d3ca",
     borderWidth: 1,
